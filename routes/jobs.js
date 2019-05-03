@@ -1,40 +1,35 @@
 const express = require('express'),
     router = express.Router({mergeParams: true}),
-    {Job, User} = require('../sequelize');
+    {   jobsCreate,
+        jobsNew, 
+        jobsIndex,
+        jobsShow,
+        jobsEdit,
+        jobsUpdate,
+        jobsDelete  } = require('../controllers/jobs');
 
     //routes for: /users/:id/jobs
 
-    //create job
-router.post('/', (req,res,next)=>{
-    req.body.UserId = req.params.id;
-    Job.create(req.body).then((job)=>{
-        res.json(job);
-    }
-    );
-});
+//create job
+router.post('/',jobsCreate);
 
+//new job
+router.get('/new',jobsNew);
 
-    //get all jobs for one user
-router.get('/', (req,res,next)=>{
-    User.findOne({
-        where:{
-            id: req.params.id
-        }
-    }).then(
-        (user)=>{
-            Job.findAll({
-                where:{
-                    UserId: user.dataValues.id
-                }
-            }).then(
-                (job)=>{
-                    console.log(job);
-                    res.json(job);
-                }
-            )
-        }
-    );
-});
+//get all jobs for one user index
+router.get('/',jobsIndex);
+
+//show job
+router.get('/:jobId',jobsShow);
+
+//edit job
+router.get('/:jobId/edit',jobsEdit);
+
+//update job
+router.put('/:jobId',jobsUpdate);
+
+//delete job
+router.delete('/:jobId',jobsDelete);
 
 
 module.exports = router;
