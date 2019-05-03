@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes)=> {
+module.exports = (sequelize,DataTypes)=> {
     return sequelize.define('Job', {
         id: {
             type: DataTypes.INTEGER,
