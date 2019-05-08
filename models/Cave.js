@@ -1,5 +1,5 @@
 module.exports = function(sequelize,DataTypes){
-    return sequelize.define('HouseGroup',{
+    return sequelize.define('Cave',{
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
