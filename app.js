@@ -4,9 +4,7 @@ const createError = require('http-errors'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
-
   //auth
-  session = require('express-session'),
   passport = require('./middleware/passport'),
   //routes
   indexRouter = require('./routes/index'),
@@ -14,9 +12,6 @@ const createError = require('http-errors'),
   jobsRouter = require('./routes/jobs'),
 
   app = express();
-
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,8 +22,8 @@ app.use(require('express-session')({
 	secret:process.env.EXPRESS_SESSION,
 	resave: false,
 	saveUninitialized: false
-}))
-
+}));
+//passport
 app.use(passport.initialize());
 app.use(passport.session());
 

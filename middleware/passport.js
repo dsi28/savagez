@@ -1,10 +1,8 @@
-  //models
-  const { User } = require('../sequelize'),
+const { User } = require('../sequelize'),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy;
 
 //passport set up
-
 passport.use(new LocalStrategy(
  function(username,password,done){
    console.log(username);
