@@ -27,7 +27,7 @@ Role.hasMany(User, {foreignKey: 'role'});
 User.hasMany(Cave, {foreignKey: 'savage'});
 User.hasOne(Cave, {foreignKey: 'landLord'})
 
-sequelize.sync({force:true})//creates tables if they have not been created.({force: true} as a param will clear all tables)
+sequelize.sync({})//creates tables if they have not been created.({force: true} as a param will clear all tables)
   .then(() => {
     console.log(`Database & tables created!`);
   });

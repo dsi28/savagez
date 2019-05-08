@@ -8,7 +8,7 @@ const express = require('express'),
         jobsUpdate,
         jobsDelete  } = require('../controllers/jobs');
 
-    //routes for: /users/:id/jobs
+    //routes for: /caves/:id/jobs
 
 //create job
 router.post('/',jobsCreate);
