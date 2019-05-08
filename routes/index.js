@@ -17,7 +17,10 @@ router.post('/register',(req,res)=>{
   })
 });
 
-router.post('/login',passport.authenticate('local'),(req,res,next)=>{
+router.post('/login',passport.authenticate('local', {
+	successRedirect: '/',
+	failureRedirect: '/login'
+}),(req,res,next)=>{
   console.log('weraera');
 })
 

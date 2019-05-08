@@ -4,12 +4,10 @@ const createError = require('http-errors'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
-  Sequelize = require('sequelize'),
-  LocalStrategy = require('passport-local').Strategy,
-  //auth
-  passport = require('passport'),
-  session = require('express-session'),
 
+  //auth
+  session = require('express-session'),
+  passport = require('./middleware/passport'),
   //routes
   indexRouter = require('./routes/index'),
   usersRouter = require('./routes/users'),
@@ -17,8 +15,7 @@ const createError = require('http-errors'),
 
   app = express();
 
-  //models
-  const { User, Job } = require('./sequelize');
+
 
 
 // view engine setup
@@ -32,37 +29,9 @@ app.use(require('express-session')({
 	saveUninitialized: false
 }))
 
-//passport set up
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(
- function(username,password,done){
-   console.log(username);
-    User.findOne({
-    where:{
-        username:username
-    }
-}).then(function(dbUser){
-      console.log(dbUser);
-     if(!dbUser){
-       return done(null,false,{
-         message:'User name does not exsist'
-       });
-     }else if(!dbUser.validPassword(password)){
-       return done(null, false, {
-         message: 'Incorrect Password'
-       });
-     }
-     return done(null, dbUser);
-   })
- }
-));
-passport.serializeUser(function(user,cb){
-  cb(null,user);
-});
-passport.deserializeUser(function(obj,cb){
-  cb(null,obj);
-});
+
 
 app.use(logger('dev'));
 app.use(express.json());
