@@ -10,57 +10,48 @@ module.exports = {
         res.render('caves/new');
     },
 
-    cavesCreate(req,res,next){
+    async cavesCreate(req,res,next){
         req.body.landLord = req.user.id;
-        Cave.create(req.body).then((cave)=>{
-            console.log(cave);
-            res.redirect(`/caves/${cave.id}`);
-        }).catch((err)=>{
-            console.log(err);
-            res.redirect('/caves/new');
-        });
+        const cave = await Cave.create(req.body);
+        console.log(cave);
+        res.redirect(`/caves/${cave.id}`);
     },
 
-    cavesShow(req,res,next){
-        Cave.findOne({
+    async cavesShow(req,res,next){
+        const cave = await Cave.findOne({
             where:{
                 id: req.params.id
             }
-        }).then((cave)=>{
-            res.render('caves/show', {cave});
         });
+        res.render('caves/show', {cave});
     },
 
-    cavesEdit(req,res,next){
-        Cave.findOne({
+    async cavesEdit(req,res,next){
+        const cave = await Cave.findOne({
             where:{
                 id: req.params.id
             }
-        }).then((cave)=>{
-            res.render('caves/edit', {cave});
         });
+        res.render('caves/edit', {cave});
     },
 
-    cavesUpdate(req,res,next){
-        Cave.update(req.body, {
-            where:{
-                id:req.params.id
-            },
-            returning:true
-        }).then((cave)=>{
-            console.log(cave);
-            res.redirect(`/caves/${req.params.id}`);
-        });
-    },
-
-    cavesDelete(req,res,next){
-        Cave.destroy({
+    async cavesUpdate(req,res,next){
+        const cave = await Cave.update(req.body, {
             where:{
                 id:req.params.id
             }
-        }).then(()=>{
-            res.redirect('/caves');
         });
+        console.log(cave);
+        res.redirect(`/caves/${req.params.id}`);
+    },
+
+    async cavesDelete(req,res,next){
+        await Cave.destroy({
+            where:{
+                id: req.params.id
+            }
+        });
+        res.redirect('/caves');
     }
 
 

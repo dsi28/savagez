@@ -6,21 +6,22 @@ const express = require('express'),
         cavesShow,
         cavesEdit,
         cavesUpdate,
-        cavesDelete } = require('../controllers/caves');
+        cavesDelete } = require('../controllers/caves'),
+        {asyncErrorHandler} = require('../middleware');
 //routes for '/caves'
 
 router.get('/', cavesIndex);
 
 router.get('/new', cavesNew);
 
-router.post('/', cavesCreate);
+router.post('/', asyncErrorHandler(cavesCreate));
 
-router.get('/:id', cavesShow);
+router.get('/:id', asyncErrorHandler(cavesShow));
 
-router.get('/:id/edit', cavesEdit);
+router.get('/:id/edit', asyncErrorHandler(cavesEdit));
 
-router.put('/:id', cavesUpdate);
+router.put('/:id', asyncErrorHandler(cavesUpdate));
 
-router.delete('/:id', cavesDelete);
+router.delete('/:id', asyncErrorHandler(cavesDelete));
 
 module.exports = router;
