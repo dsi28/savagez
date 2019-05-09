@@ -1,38 +1,26 @@
 const express = require('express'),
   router = express.Router(),
   passport = require('passport'),
-  {User} = require('../sequelize');
+  {User} = require('../sequelize'),
+  {postLogin,
+   postRegister,
+   getLogin,
+   getRegister,
+   getLogout} = require('../controllers');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-//auth
-router.post('/register',(req,res)=>{
-  User.create(req.body).then(()=>{
-    console.log('created user');
-  }).catch((err)=>{
-    console.log(err);
-  })
-});
+//auth routes
 
-router.post('/login',passport.authenticate('local', {
-	successRedirect: '/',
-	failureRedirect: '/login'
-}),(req,res,next)=>{
-  console.log('weraera');
-})
+router.get('/register',getRegister);
+router.post('/register',postRegister);
 
-// router.post('/login',(req,res,next)=>{
-//   User.findOne({
-//     where:{
-//         username:req.body.username
-//     }
-//   }).then((logUser)=>{
-//     console.log('do it');
-//     res.json(logUser);
-//   })
-// })
+router.get('/login',getLogin);
+router.post('/login',postLogin);
+
+router.get('/logout',getLogout);
 
 module.exports = router;
