@@ -1,10 +1,12 @@
 
 const middleware = {
+    //handles async errors
     asyncErrorHandler: (fn)=>
     (req,res,next)=>{
         Promise.resolve(fn(req,res,next)).catch(next);
     },
 
+    //checks if the user is logged in
     userIsLoggedIn: (req,res,next)=>{
         if(req.isAuthenticated()){
             return next();
@@ -14,6 +16,7 @@ const middleware = {
         }
     },
 
+    //checks if the user is an admin/landlord
     userIsLandLord: (req,res,next)=>{
         if(req.user.role === 'Land Lord'){
             return next();
