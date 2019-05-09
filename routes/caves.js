@@ -6,22 +6,26 @@ const express = require('express'),
         cavesShow,
         cavesEdit,
         cavesUpdate,
-        cavesDelete } = require('../controllers/caves'),
-        {asyncErrorHandler} = require('../middleware');
+        cavesDelete 
+    } = require('../controllers/caves'),
+    {   asyncErrorHandler,
+        userIsLoggedIn,
+        userIsLandLord
+    } = require('../middleware');
 //routes for '/caves'
 
-router.get('/', cavesIndex);
+router.get('/', userIsLoggedIn, cavesIndex);
 
-router.get('/new', cavesNew);
+router.get('/new', userIsLoggedIn, cavesNew);
 
-router.post('/', asyncErrorHandler(cavesCreate));
+router.post('/', userIsLoggedIn, asyncErrorHandler(cavesCreate));
 
-router.get('/:id', asyncErrorHandler(cavesShow));
+router.get('/:id', userIsLoggedIn, asyncErrorHandler(cavesShow));
 
-router.get('/:id/edit', asyncErrorHandler(cavesEdit));
+router.get('/:id/edit', userIsLoggedIn, userIsLandLord, asyncErrorHandler(cavesEdit));
 
-router.put('/:id', asyncErrorHandler(cavesUpdate));
+router.put('/:id', userIsLoggedIn, userIsLandLord, asyncErrorHandler(cavesUpdate));
 
-router.delete('/:id', asyncErrorHandler(cavesDelete));
+router.delete('/:id', userIsLoggedIn, userIsLandLord, asyncErrorHandler(cavesDelete));
 
 module.exports = router;

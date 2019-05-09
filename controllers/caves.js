@@ -1,4 +1,4 @@
-const {Cave} = require('../sequelize');
+const {Cave, User, Role} = require('../sequelize');
 
 module.exports = { 
 
@@ -11,8 +11,20 @@ module.exports = {
     },
 
     async cavesCreate(req,res,next){
+        const roleLandLord = await Role.findOne({
+            where:{
+                name: 'Land Lord'
+            }
+        });
         req.body.landLord = req.user.id;
         const cave = await Cave.create(req.body);
+        await User.update({
+            role: roleLandLord.name
+        }, {
+            where:{
+                id: req.user.id
+            }
+        });
         console.log(cave);
         res.redirect(`/caves/${cave.id}`);
     },

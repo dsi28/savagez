@@ -32,6 +32,15 @@ sequelize.sync({})//creates tables if they have not been created.({force: true} 
     console.log(`Database & tables created!`);
   });
 
+  // //create roles to
+  // Role.create({
+  //   name: 'Land Lord',
+  //   desc:'admin'
+  // });
+  // Role.create({
+  //   name: 'Savage',
+  //   desc:'user'
+  // });
 module.exports = {
   User,
   Job,
