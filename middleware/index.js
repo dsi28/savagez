@@ -11,6 +11,7 @@ const middleware = {
         if(req.isAuthenticated()){
             return next();
         }else{
+            req.flash('error', 'You must be logged in to do this...');
             console.log('user is not logged in');
             return res.redirect('/login');
         }
@@ -21,6 +22,7 @@ const middleware = {
         if(req.user.role === 'Land Lord'){
             return next();
         }else{
+            req.flash('error', 'You do not have permission to do this...');
             console.log('user is not a landlord');
             res.redirect('back');
         }

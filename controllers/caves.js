@@ -26,6 +26,7 @@ module.exports = {
             }
         });
         console.log(cave);
+        req.flash('success', 'Cave created!');
         res.redirect(`/caves/${cave.id}`);
     },
 
@@ -54,6 +55,7 @@ module.exports = {
             }
         });
         console.log(cave);
+        req.flash('success', 'Cave updated!');
         res.redirect(`/caves/${req.params.id}`);
     },
 
@@ -63,8 +65,7 @@ module.exports = {
                 id: req.params.id
             }
         });
+        req.flash('success', 'Cave deleted!');
         res.redirect('/caves');
     }
-
-
 }
