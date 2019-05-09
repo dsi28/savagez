@@ -2,7 +2,7 @@
     <h1 style='text-align: center'>New Cave</h1>
     <div>
         <div style='width: 30%; margin:30px auto'>
-            <form action='/register' method='POST'>
+            <form action='/caves/<%=cave.id%>?_method=PUT' method='POST'>
                 <div>
                     <label for='name'>Name</label>
                     <input type='text' name='name' id='name' value='<%=cave.name%>'>

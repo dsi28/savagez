@@ -1,2 +1,6 @@
 <h1>Cave Show</h1>
 <h3><%=cave.name%></h3>
+<p><a href='/caves/<%=cave.id%>/edit'>Edit</a> cave</p>
+<form method='POST' action='/caves/<%=cave.id%>?_method=DELETE'>
+    <input type='submit' value='DELETE'>
+</form>

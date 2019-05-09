@@ -1,6 +1,7 @@
 const express = require('express'),
     router = express.Router(),
-    {   cavesNew,
+    {   cavesIndex,
+        cavesNew,
         cavesCreate,
         cavesShow,
         cavesEdit,
@@ -8,16 +9,18 @@ const express = require('express'),
         cavesDelete } = require('../controllers/caves');
 //routes for '/caves'
 
-router.get('/caves/new', cavesNew);
+router.get('/', cavesIndex);
 
-router.post('/caves', cavesCreate);
+router.get('/new', cavesNew);
 
-router.get('/caves/:id', cavesShow);
+router.post('/', cavesCreate);
 
-router.get('/caves/:id/edit', cavesEdit);
+router.get('/:id', cavesShow);
 
-router.put('/caves/:id', cavesUpdate);
+router.get('/:id/edit', cavesEdit);
 
-router.delete('/caves/:id', cavesDelete);
+router.put('/:id', cavesUpdate);
+
+router.delete('/:id', cavesDelete);
 
 module.exports = router;

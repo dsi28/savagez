@@ -4,6 +4,7 @@ const createError = require('http-errors'),
   path = require('path'),
   cookieParser = require('cookie-parser'),
   logger = require('morgan'),
+  methodOverride = require('method-override'),
   //auth
   passport = require('./middleware/passport'),
   //routes
@@ -32,12 +33,13 @@ app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/caves', cavesRouter);
-app.use('/caves/:id/jobs', jobsRouter);
+//app.use('/caves/:id/jobs', jobsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
