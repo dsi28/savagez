@@ -10,6 +10,7 @@ const createError = require('http-errors'),
   indexRouter = require('./routes/index'),
   usersRouter = require('./routes/users'),
   jobsRouter = require('./routes/jobs'),
+  cavesRouter = require('./routes/caves'),
 
   app = express();
 
@@ -35,6 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/caves', cavesRouter);
 app.use('/caves/:id/jobs', jobsRouter);
 
 // catch 404 and forward to error handler
