@@ -32,7 +32,11 @@ module.exports = {
                 id: req.params.id
             }
         });
-        res.render('caves/show', {cave});
+        const caveUser = await CaveUser.findOne({where:{
+            caveId:cave.id,
+            role:'Land Lord'
+        }});
+        res.render('caves/show', {cave, caveUser});
     },
 
     async cavesEdit(req,res,next){
