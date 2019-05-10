@@ -21,7 +21,7 @@ const middleware = {
     userIsLandLord: async(req,res,next)=>{
         const caveUser = await CaveUser.findOne({
             where: {
-                userId:req.user.id,
+                username:req.user.username,
                 caveId:req.params.id
             }
         });

@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') -%>
 <h1>Cave Show</h1>
 <h3><%=cave.name%></h3>
-<%if(currentUser && currentUser.id === caveUser.userId){%>
+<%if(currentUser && currentUser.username === caveUser.username){%>
     <p><a href='/caves/<%=cave.id%>/edit'>Edit</a> cave</p>
     <form method='POST' action='/caves/<%=cave.id%>?_method=DELETE'>
         <input type='submit' value='DELETE'>

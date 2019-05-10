@@ -19,7 +19,7 @@ module.exports = {
         const cave = await Cave.create(req.body);
         const caveUser = await CaveUser.create({
             caveId: cave.id,
-            userId: req.user.id,
+            username: req.user.username,
             role: roleLandLord.name
         });
         req.flash('success', 'Cave created!');
