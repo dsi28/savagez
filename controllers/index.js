@@ -2,17 +2,20 @@ const {User} =  require('../sequelize'),
     passport = require('passport');
 
 module.exports = {
-
-    postRegister(req,res,next){
-        console.log(req.body);
-        User.create(req.body).then(()=>{
-            req.flash('success', 'Welcome to SAvagEz!');
-            res.redirect('/');
+    async postRegister(req,res,next){
+        const user = await User.create(req.body);
+        await req.login(user, (err)=>{
+            if (err){ 
+                return next(err); 
+            }else{
+                req.flash('success', 'Welcome to SAvagEz!');
+                return res.redirect('/');
+            }
         });
     },
 
-    postLogin(req,res,next){
-        passport.authenticate('local', {
+    async postLogin(req,res,next){
+        await passport.authenticate('local', {
             successRedirect: '/',
             failureRedirect: '/login',
             successFlash: 'Welcome back!',
