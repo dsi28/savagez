@@ -32,8 +32,28 @@ const middleware = {
             console.log('user is not a landlord');
             res.redirect('back');
         }
-    }
+    },
+    //if is loggedin they cannot get to log in register. 
+    validateLoginRegister: (req,res,next)=>{
+        if(req.isAuthenticated()){
+            req.flash('error', `You are currently logged in as ${req.user.username}. Please log out first.`);
+            console.log('User already logged in');
+            return res.redirect('back');
+        }else{
+            return next();
+        }
+    },
     
+    //if user is not logged in they cannot get to logout
+    validateLogout: (req,res,next)=>{
+        if(req.isAuthenticated()){
+            return next();
+        }else{
+            req.flash('error', `You are not currently signed in to any account.`);
+            console.log('No user logged in.');
+            return res.redirect('/login');
+        }
+    }
 
 }
 module.exports = middleware;

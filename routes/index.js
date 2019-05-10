@@ -7,7 +7,11 @@ const express = require('express'),
    getLogin,
    getRegister,
    getLogout} = require('../controllers'),
-  {asyncErrorHandler} = require('../middleware');
+  {
+    asyncErrorHandler,
+    validateLoginRegister,
+    validateLogout
+  } = require('../middleware'); 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,12 +20,12 @@ router.get('/', function(req, res, next) {
 
 //auth routes
 
-router.get('/register',getRegister);
-router.post('/register',asyncErrorHandler(postRegister));
+router.get('/register', validateLoginRegister, getRegister);
+router.post('/register', validateLoginRegister, asyncErrorHandler(postRegister));
 
-router.get('/login',getLogin);
-router.post('/login',asyncErrorHandler(postLogin));
+router.get('/login', validateLoginRegister, getLogin);
+router.post('/login', validateLoginRegister, asyncErrorHandler(postLogin));
 
-router.get('/logout',getLogout);
+router.get('/logout', validateLogout, getLogout);
 
 module.exports = router;
