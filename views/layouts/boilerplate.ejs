@@ -6,6 +6,9 @@
 	</head>
 	<body>
 		<div class='container'>
+			<%if(currentUser){%>
+				<p><%=currentUser.username%></p>
+			<%}%>
 			<%if(error && error.length >0){%>
 				<div class="alert alert-danger" role="alert"><%=error%></div>
 			<%}else if(success && success.length >0){%>

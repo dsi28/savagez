@@ -24,8 +24,9 @@ Job.belongsTo(User);
 Role.hasMany(User, {foreignKey: 'role'});
 
     //Cave
-User.hasMany(Cave, {foreignKey: 'savage'});
-User.hasOne(Cave, {foreignKey: 'landLord'})
+// User.hasMany(Cave, {foreignKey: 'savage'});
+//User.hasOne(Cave, {foreignKey: 'landLord'}); 
+Cave.hasMany(User, {foreignKey: 'caveId'}); // want the table id on the user table
 
 sequelize.sync({})//creates tables if they have not been created.({force: true} as a param will clear all tables)
   .then(() => {

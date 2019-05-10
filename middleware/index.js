@@ -1,4 +1,4 @@
-
+const {Cave} = require('../sequelize');
 const middleware = {
     //handles async errors
     asyncErrorHandler: (fn)=>
@@ -25,6 +25,21 @@ const middleware = {
             req.flash('error', 'You do not have permission to do this...');
             console.log('user is not a landlord');
             res.redirect('back');
+        }
+    },
+
+    //checks if user has already is alread a part of a Cave as a landlord or as a Savage.
+    userHasCave: async(req,res,next)=>{
+        if(!req.user.role){
+            req.flash('error', 'Sorry, You are already have a cave');
+            const cave = await Cave.findOne({
+                where:{
+                    user: req.user.id
+                }
+            })
+            return res.redirect('back');
+        }else{
+            return next();
         }
     }
     

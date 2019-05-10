@@ -19,7 +19,8 @@ module.exports = {
         req.body.landLord = req.user.id;
         const cave = await Cave.create(req.body);
         await User.update({
-            role: roleLandLord.name
+            role: roleLandLord.name,
+            caveId: cave.id
         }, {
             where:{
                 id: req.user.id
