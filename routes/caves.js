@@ -22,10 +22,10 @@ router.post('/', userIsLoggedIn, asyncErrorHandler(cavesCreate));
 
 router.get('/:id', userIsLoggedIn, asyncErrorHandler(cavesShow));
 
-router.get('/:id/edit', userIsLoggedIn, userIsLandLord, asyncErrorHandler(cavesEdit));
+router.get('/:id/edit', userIsLoggedIn, asyncErrorHandler(userIsLandLord), asyncErrorHandler(cavesEdit));
 
-router.put('/:id', userIsLoggedIn, userIsLandLord, asyncErrorHandler(cavesUpdate));
+router.put('/:id', userIsLoggedIn, asyncErrorHandler(userIsLandLord), asyncErrorHandler(cavesUpdate));
 
-router.delete('/:id', userIsLoggedIn, userIsLandLord, asyncErrorHandler(cavesDelete));
+router.delete('/:id', userIsLoggedIn, asyncErrorHandler(userIsLandLord), asyncErrorHandler(cavesDelete));
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const {Cave, User, Role} = require('../sequelize');
+const {Cave, User, Role, CaveUser, Job} = require('../sequelize');
 
 module.exports = { 
 
@@ -16,17 +16,12 @@ module.exports = {
                 name: 'Land Lord'
             }
         });
-        req.body.landLord = req.user.id;
         const cave = await Cave.create(req.body);
-        await User.update({
-            role: roleLandLord.name,
-            caveId: cave.id
-        }, {
-            where:{
-                id: req.user.id
-            }
+        const caveUser = await CaveUser.create({
+            caveId: cave.id,
+            userId: req.user.id,
+            role: roleLandLord.name
         });
-        console.log(cave);
         req.flash('success', 'Cave created!');
         res.redirect(`/caves/${cave.id}`);
     },
@@ -61,6 +56,17 @@ module.exports = {
     },
 
     async cavesDelete(req,res,next){
+        //after creating jobs routes add job.destroy and caveUser.destroy as prehooks in Cave for destroy
+        await Job.destroy({
+            where:{
+                caveId:req.params.id
+            }
+        });
+        await CaveUser.destroy({
+            where: {
+                caveId: req.params.id
+            }
+        });
         await Cave.destroy({
             where:{
                 id: req.params.id

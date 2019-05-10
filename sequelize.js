@@ -17,6 +17,7 @@ const Sequelize = require('sequelize'),
     CaveUser = sequelize.define('CaveUser', {});
 
 //Set all relationships
+//user-cave many to many using CaveUser. CaveUser-role one to one. user-job one to many. cave-job one to many. 
     //jobs one to one user
 Job.belongsTo(User,{foreignKey: 'userId' });
 Job.belongsTo(Cave, {foreignKey: 'caveId' });
@@ -37,23 +38,24 @@ Cave.belongsToMany(User, { through: CaveUser, unique: false, foreignKey: 'userId
 Role.hasOne(CaveUser, { foreignKey: 'role'});
 
 
-sequelize.sync({force:true})//creates tables if they have not been created.({force: true} as a param will clear all tables)
+sequelize.sync({})//creates tables if they have not been created.({force: true} as a param will clear all tables)
   .then(() => {
     console.log(`Database & tables created!`);
   });
 
-  //create roles to
-  Role.create({
-    name: 'Land Lord',
-    desc:'admin'
-  });
-  Role.create({
-    name: 'Savage',
-    desc:'user'
-  });
+  // //create roles to
+  // Role.create({
+  //   name: 'Land Lord',
+  //   desc:'admin'
+  // });
+  // Role.create({
+  //   name: 'Savage',
+  //   desc:'user'
+  // });
 module.exports = {
   User,
   Job,
   Role,
-  Cave
+  Cave,
+  CaveUser
 }
