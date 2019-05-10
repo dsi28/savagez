@@ -19,7 +19,7 @@ const Sequelize = require('sequelize'),
 //Set all relationships
 //user-cave many to many using CaveUser. CaveUser-role one to one. user-job one to many. cave-job one to many. 
     //jobs one to one user
-Job.belongsTo(User,{foreignKey: 'userId' });
+Job.belongsTo(User,{foreignKey: 'username' });
 Job.belongsTo(Cave, {foreignKey: 'caveId' });
 //User.hasMany(Job, {foreignKey:'wah'});
 
@@ -33,7 +33,7 @@ Job.belongsTo(Cave, {foreignKey: 'caveId' });
 
     //cave-user relationship. many to many
 User.belongsToMany(Cave, { through: CaveUser, unique: false, foreignKey: 'caveId' });
-Cave.belongsToMany(User, { through: CaveUser, unique: false, foreignKey: 'userId' });
+Cave.belongsToMany(User, { through: CaveUser, unique: false, foreignKey: 'username' });
 
 Role.hasOne(CaveUser, { foreignKey: 'role'});
 
@@ -44,14 +44,14 @@ sequelize.sync({})//creates tables if they have not been created.({force: true} 
   });
 
   // //create roles to
-  // Role.create({
-  //   name: 'Land Lord',
-  //   desc:'admin'
-  // });
-  // Role.create({
-  //   name: 'Savage',
-  //   desc:'user'
-  // });
+  Role.create({
+    name: 'Land Lord',
+    desc:'admin'
+  });
+  Role.create({
+    name: 'Savage',
+    desc:'user'
+  });
 module.exports = {
   User,
   Job,

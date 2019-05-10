@@ -2,10 +2,14 @@ const bcrypt = require('bcrypt');
 
 module.exports = function(sequelize,DataTypes) {
     const User = sequelize.define('User', {
-        id: {
-            type: DataTypes.INTEGER,
+        username:{
+            type: DataTypes.STRING,
             primaryKey: true,
-            autoIncrement: true
+            AllowNull: false
+        },
+        password:{
+            type: DataTypes.STRING,
+            AllowNull:false
         },
         firstName: { //TABLE ROW
            type: DataTypes.STRING, //EXPECTING A STRING {COLUMN STRUCTURE}
@@ -14,15 +18,6 @@ module.exports = function(sequelize,DataTypes) {
         lastName: { //TABLE ROW
             type: DataTypes.STRING, //EXPECTING A STRING {COLUMN STRUCTURE}
             AllowNull: false //THIS COLUMN CANNOT BE EMPTY
-        },
-        username:{
-            type: DataTypes.STRING,
-            AllowNull: false,
-            unique: true
-        },
-        password:{
-            type: DataTypes.STRING,
-            AllowNull:false
         }
     });
 
@@ -32,7 +27,7 @@ module.exports = function(sequelize,DataTypes) {
 
     User.addHook('beforeCreate', function(user){
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
-    })
+    });
 
     return User;
 };
