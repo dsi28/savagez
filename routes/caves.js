@@ -14,7 +14,7 @@ const express = require('express'),
     } = require('../middleware');
 //routes for '/caves'
 
-router.get('/', userIsLoggedIn, cavesIndex);
+router.get('/', userIsLoggedIn, asyncErrorHandler(cavesIndex));
 
 router.get('/new', userIsLoggedIn, cavesNew);
 

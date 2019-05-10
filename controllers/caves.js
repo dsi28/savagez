@@ -1,9 +1,19 @@
-const {Cave, User, Role, CaveUser, Job} = require('../sequelize');
+const {Cave, User, Role, CaveUser, Job} = require('../sequelize'),
+    FuzzySearch = require('fuzzy-search');
 
 module.exports = { 
 
-    cavesIndex(req,res,next){
-        res.render('caves/index');
+    async cavesIndex(req,res,next){
+        if(req.query.search){
+            const cavesList = await Cave.findAll({
+                attributes: ['name','id']
+            });
+            const searcher = new FuzzySearch(cavesList,['name']);
+            const result = searcher.search(req.query.search);
+            res.render('caves/index', {searchCamps: result});
+        }else{
+            res.render('caves/index');
+        }
     },
 
     cavesNew(req,res,next){

@@ -32,26 +32,26 @@ Job.belongsTo(Cave, {foreignKey: 'caveId' });
 //Cave.hasMany(User, {foreignKey: 'caveId'}); // want the table id on the user table
 
     //cave-user relationship. many to many
-User.belongsToMany(Cave, { through: CaveUser, unique: false, foreignKey: 'caveId' });
-Cave.belongsToMany(User, { through: CaveUser, unique: false, foreignKey: 'username' });
+User.belongsToMany(Cave, { through: CaveUser, unique: false, foreignKey: 'username' });
+Cave.belongsToMany(User, { through: CaveUser, unique: false, foreignKey: 'caveId' });
 
 Role.hasOne(CaveUser, { foreignKey: 'role'});
 
 
-sequelize.sync({})//creates tables if they have not been created.({force: true} as a param will clear all tables)
+sequelize.sync({force:true})//creates tables if they have not been created.({force: true} as a param will clear all tables)
   .then(() => {
     console.log(`Database & tables created!`);
   });
 
   // //create roles to
-  Role.create({
-    name: 'Land Lord',
-    desc:'admin'
-  });
-  Role.create({
-    name: 'Savage',
-    desc:'user'
-  });
+  // Role.create({
+  //   name: 'Land Lord',
+  //   desc:'admin'
+  // });
+  // Role.create({
+  //   name: 'Savage',
+  //   desc:'user'
+  // });
 module.exports = {
   User,
   Job,
