@@ -38,12 +38,12 @@ Cave.belongsToMany(User, { through: CaveUser, unique: false, foreignKey: 'caveId
 Role.hasOne(CaveUser, { foreignKey: 'role'});
 
 
-sequelize.sync({force:true})//creates tables if they have not been created.({force: true} as a param will clear all tables)
+sequelize.sync({})//creates tables if they have not been created.({force: true} as a param will clear all tables)
   .then(() => {
     console.log(`Database & tables created!`);
   });
 
-  // //create roles to
+  // // //create roles to
   // Role.create({
   //   name: 'Land Lord',
   //   desc:'admin'

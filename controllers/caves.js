@@ -10,9 +10,10 @@ module.exports = {
             });
             const searcher = new FuzzySearch(cavesList,['name']);
             const result = searcher.search(req.query.search);
-            res.render('caves/index', {searchCamps: result});
+            console.log(result);
+            res.render('caves/index', {searchCaves: result});
         }else{
-            res.render('caves/index');
+            res.render('caves/index',  {searchCaves: {}});
         }
     },
 
