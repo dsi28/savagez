@@ -26,9 +26,9 @@ module.exports = {
             const searcher = new FuzzySearch(cavesList,['name']);
             const result = searcher.search(req.query.search);
             console.log(result);
-            res.render('caves/index', {searchCaves: result, userCaves});
+            res.render('caves/index', {searchCaves: result, userCaves, search: req.query.search});
         }else{
-            res.render('caves/index',  {searchCaves: {}, userCaves});
+            res.render('caves/index',  {searchCaves: {}, userCaves, search: false});
         }
     },
 
