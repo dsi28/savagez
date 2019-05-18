@@ -14,11 +14,7 @@ module.exports = {
                     username: req.user.username
                 }
             }]
-            
         });
-        console.log('/////////////////////////////////////////');
-        console.log(userCaves);
-
         if(req.query.search){
             const cavesList = await Cave.findAll({
                 attributes: ['name','caveId']

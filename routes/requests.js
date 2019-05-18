@@ -1,12 +1,8 @@
 const express = require('express'),
     router = express.Router(),
     {   
-        requestIndex,
-        requestShow,
-        requestNew,
-        requestEdit,
-        requestCreate,
-        requestDelete
+        requestUpdate,
+        requestCreate
     } = require('../controllers/requests'),
     {   asyncErrorHandler,
         userIsLoggedIn,
@@ -14,8 +10,6 @@ const express = require('express'),
     } = require('../middleware');
 
     //routes for: '/caves/:id/requests'
-
-router.get('/', asyncErrorHandler(requestIndex));
 
 router.get('/:requestId', asyncErrorHandler(requestShow));
 
@@ -25,7 +19,7 @@ router.post('/', asyncErrorHandler(requestCreate));
 
 router.get('/:requestId/edit', asyncErrorHandler(requestEdit));
 
-router.put('/requrestId', asyncErrorHandler(requestCreate));
+router.put('/requrestId', asyncErrorHandler(requestUpdate));
 
 router.delete('/requestId', asyncErrorHandler(requestDelete));
 
