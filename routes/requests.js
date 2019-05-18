@@ -6,22 +6,14 @@ const express = require('express'),
     } = require('../controllers/requests'),
     {   asyncErrorHandler,
         userIsLoggedIn,
-        userIsLandLord
+        userIsLandLord,
+        validatePendingRequests
     } = require('../middleware');
 
     //routes for: '/caves/:id/requests'
 
-router.get('/:requestId', asyncErrorHandler(requestShow));
+router.post('/', userIsLoggedIn, asyncErrorHandler(validatePendingRequests), asyncErrorHandler(requestCreate));
 
-router.get('/new', asyncErrorHandler(requestNew));
+router.put('/requrestId', userIsLoggedIn, userIsLandLord, asyncErrorHandler(requestUpdate));
 
-router.post('/', asyncErrorHandler(requestCreate));
-
-router.get('/:requestId/edit', asyncErrorHandler(requestEdit));
-
-router.put('/requrestId', asyncErrorHandler(requestUpdate));
-
-router.delete('/requestId', asyncErrorHandler(requestDelete));
-
-router.get('')
 module.exports = router;
