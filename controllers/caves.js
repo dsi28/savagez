@@ -1,19 +1,34 @@
 const {Cave, User, Role, CaveUser, Job} = require('../sequelize'),
-    FuzzySearch = require('fuzzy-search');
+    FuzzySearch = require('fuzzy-search'),
+    Sequelize = require('sequelize'),
+    Op = Sequelize.Op;
 
 module.exports = { 
 
     async cavesIndex(req,res,next){
+        const userCaves = await Cave.findAll({
+            include: [{
+                model: User,
+                through: { attributes: [] },
+                where:{
+                    username: req.user.username
+                }
+            }]
+            
+        });
+        console.log('/////////////////////////////////////////');
+        console.log(userCaves);
+
         if(req.query.search){
             const cavesList = await Cave.findAll({
-                attributes: ['name','id']
+                attributes: ['name','caveId']
             });
             const searcher = new FuzzySearch(cavesList,['name']);
             const result = searcher.search(req.query.search);
             console.log(result);
-            res.render('caves/index', {searchCaves: result});
+            res.render('caves/index', {searchCaves: result, userCaves});
         }else{
-            res.render('caves/index',  {searchCaves: {}});
+            res.render('caves/index',  {searchCaves: {}, userCaves});
         }
     },
 
@@ -29,22 +44,22 @@ module.exports = {
         });
         const cave = await Cave.create(req.body);
         const caveUser = await CaveUser.create({
-            caveId: cave.id,
+            caveId: cave.caveId,
             username: req.user.username,
             role: roleLandLord.name
         });
         req.flash('success', 'Cave created!');
-        res.redirect(`/caves/${cave.id}`);
+        res.redirect(`/caves/${cave.caveId}`);
     },
 
     async cavesShow(req,res,next){
         const cave = await Cave.findOne({
             where:{
-                id: req.params.id
+                caveId: req.params.id
             }
         });
         const caveUser = await CaveUser.findOne({where:{
-            caveId:cave.id,
+            caveId:cave.caveId,
             role:'Land Lord'
         }});
         res.render('caves/show', {cave, caveUser});
@@ -53,7 +68,7 @@ module.exports = {
     async cavesEdit(req,res,next){
         const cave = await Cave.findOne({
             where:{
-                id: req.params.id
+                caveId: req.params.id
             }
         });
         res.render('caves/edit', {cave});
@@ -62,7 +77,7 @@ module.exports = {
     async cavesUpdate(req,res,next){
         const cave = await Cave.update(req.body, {
             where:{
-                id:req.params.id
+                caveId:req.params.id
             }
         });
         console.log(cave);
@@ -84,7 +99,7 @@ module.exports = {
         });
         await Cave.destroy({
             where:{
-                id: req.params.id
+                caveId: req.params.id
             }
         });
         req.flash('success', 'Cave deleted!');

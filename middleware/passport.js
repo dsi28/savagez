@@ -5,13 +5,11 @@ const { User } = require('../sequelize'),
 //passport set up
 passport.use(new LocalStrategy(
  function(username,password,done){
-   console.log(username);
     User.findOne({
     where:{
         username:username
     }
 }).then(function(dbUser){
-      console.log(dbUser);
      if(!dbUser){
        return done(null,false,{
          message:'User name does not exsist'

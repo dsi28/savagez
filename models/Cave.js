@@ -1,6 +1,6 @@
 module.exports = function(sequelize,DataTypes){
     return sequelize.define('Cave',{
-        id: {
+        caveId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true

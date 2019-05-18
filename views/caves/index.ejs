@@ -1,15 +1,25 @@
 <% layout('layouts/boilerplate') -%>
 <h1>Caves Index</h1>
 <p><a href='/caves/new'>Create a cave</a></p>
+<h3>Your Caves</h3>
+<%if(userCaves && Array.isArray(userCaves)){%>
+    <%userCaves.forEach((cave)=>{%>
+        <a href='/caves/<%=cave.dataValues.caveId%>'><%=cave.dataValues.name%></a>
+    <%})%>
+<%}else if(userCaves){%>
+    <p>h</p>
+    <a href='/caves/<%=userCaves.dataValues.caveId%>'><%=userCaves.dataValues.caveId.name%></a>
+<%}%>
+
 <form method='GET' action='/caves'>
     <label for='search'>Search Caves</label>
     <input type='text' name='search' id='searchCaves' placeholder='Cave Search'>
     <input type='submit' value='Search'>
 </form>
-<%if(searchCaves){%>
+<%if(searchCaves && Array.isArray(searchCaves)){%>
     <%searchCaves.forEach((foundCave)=>{%>
         <a href='/caves/<%=foundCave.id%>'><%=foundCave.name%></a>
     <%})%>
-<%}else{%>
-
+<%}else if(searchCaves){%>
+    <a href='/caves/<%=searchCaves.id%>'><%=searchCaves.name%></a>
 <%}%>
