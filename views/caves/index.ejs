@@ -22,8 +22,8 @@
 </form>
 <%if(searchCaves && Array.isArray(searchCaves)){%>
     <%searchCaves.forEach((foundCave)=>{%>
-        <a href='/caves/<%=foundCave.id%>'><%=foundCave.name%></a>
+        <a href='/caves/<%=foundCave.caveId%>'><%=foundCave.name%></a>
     <%})%>
 <%}else if(searchCaves){%>
-    <a href='/caves/<%=searchCaves.id%>'><%=searchCaves.name%></a>
+    <a href='/caves/<%=searchCaves.caveId%>'><%=searchCaves.name%></a>
 <%}%>

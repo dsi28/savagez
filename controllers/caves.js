@@ -56,7 +56,7 @@ module.exports = {
         });
         const caveUser = await CaveUser.findOne({where:{
             caveId:cave.caveId,
-            role:'Land Lord'
+            username:req.user.username
         }});
         res.render('caves/show', {cave, caveUser});
     },

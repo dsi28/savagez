@@ -72,6 +72,5 @@ const middleware = {
             return res.redirect('/caves');
         }
     }
-
 }
 module.exports = middleware;

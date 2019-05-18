@@ -1,9 +1,13 @@
 <% layout('layouts/boilerplate') -%>
 <h1>Cave Show</h1>
 <h3><%=cave.name%></h3>
-<%if(currentUser && currentUser.username === caveUser.username){%>
-    <p><a href='/caves/<%=cave.id%>/edit'>Edit</a> cave</p>
-    <form method='POST' action='/caves/<%=cave.id%>?_method=DELETE'>
+<%if(currentUser && caveUser && caveUser.role === 'Land Lord'){%>
+    <p><a href='/caves/<%=cave.caveId%>/edit'>Edit</a> cave</p>
+    <form method='POST' action='/caves/<%=cave.caveId%>?_method=DELETE'>
         <input type='submit' value='DELETE'>
+    </form>
+<%}else if(currentUser && !caveUser){%>
+    <form method='POST' action='/caves/<%=cave.caveId%>/requests'>
+        <input type='submit' value='Join Cave'>
     </form>
 <%}%>
