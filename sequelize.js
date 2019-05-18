@@ -24,21 +24,11 @@ const Sequelize = require('sequelize'),
 Job.belongsTo(User, {foreignKey: 'username'});
 Job.belongsTo(Cave, {foreignKey: 'caveId'});
 
-// cave-request one to many 
+    // cave-request one to many 
 Cave.hasMany(Request, {foreignKey: 'caveId'});
 
-// user-requrest one to many
+    // user-requrest one to many
 User.hasMany(Request, {foreignKey: 'username'});
-
-//User.hasMany(Job, {foreignKey:'wah'});
-
-    //roles
-//Role.hasMany(User, {foreignKey: 'role'});
-
-    //Cave
-// User.hasMany(Cave, {foreignKey: 'savage'});
-//User.hasOne(Cave, {foreignKey: 'landLord'}); 
-//Cave.hasMany(User, {foreignKey: 'caveId'}); // want the table id on the user table
 
     //cave-user relationship. many to many
 User.belongsToMany(Cave, { through: CaveUser, unique: false, foreignKey: 'username' });
