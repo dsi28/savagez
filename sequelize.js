@@ -4,6 +4,7 @@ const Sequelize = require('sequelize'),
     JobModel = require('./models/Job'),
     RoleModel = require('./models/Role'),
     CaveModel = require('./models/Cave'),
+    RequestModel = require('./models/Request'),
     //db connection
     sequelize = new Sequelize(process.env.POSTGRE_DB, process.env.POSTGRE_USER, process.env.POSTGRE_PASSWORD, {
         host: 'localhost',
@@ -13,14 +14,22 @@ const Sequelize = require('sequelize'),
     User = UserModel(sequelize,Sequelize),
     Job = JobModel(sequelize,Sequelize),
     Role = RoleModel(sequelize,Sequelize),
+    Request = RequestModel(sequelize,Sequelize),
     Cave = CaveModel(sequelize,Sequelize),
     CaveUser = sequelize.define('CaveUser', {});
 
 //Set all relationships
 //user-cave many to many using CaveUser. CaveUser-role one to one. user-job one to many. cave-job one to many. 
     //jobs one to one user
-Job.belongsTo(User,{foreignKey: 'username' });
-Job.belongsTo(Cave, {foreignKey: 'caveId' });
+Job.belongsTo(User, {foreignKey: 'username'});
+Job.belongsTo(Cave, {foreignKey: 'caveId'});
+
+// cave-request one to many 
+Cave.hasMany(Request, {foreignKey: 'caveId'});
+
+// user-requrest one to many
+User.hasMany(Request, {foreignKey: 'username'});
+
 //User.hasMany(Job, {foreignKey:'wah'});
 
     //roles
@@ -56,6 +65,7 @@ module.exports = {
   User,
   Job,
   Role,
+  Request,
   Cave,
   CaveUser
 }
