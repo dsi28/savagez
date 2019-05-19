@@ -12,11 +12,9 @@ module.exports = {
     },
 
     async requestUpdate(req,res,next){
-        const request = await Request.update({
-            status: req.body.status
-        }, {
+        const request = await Request.findOne({
             where:{
-                requestId:req.params.requestId
+                requestId: req.params.requestId
             }
         });
         if(!request){
@@ -24,17 +22,25 @@ module.exports = {
             req.flash('error', 'no request found');
             res.redirect('/back');
         }else{
-            console.log(request);
+            request.status = req.body.status;
+            console.log('///////////////////////////////////////////////////');
+            console.log(request.status);
             if(request.status === 'accepted'){
+                const role = await Role.findOne({
+                    where:{
+                        name: 'Savage'
+                    }
+                });
                 await CaveUser.create({
                     username: request.username,
                     caveId: request.caveId,
-                    role: 'savage'
+                    role: role.name
                 });
                 req.flash('success', `${request.username} has been added to the cave`);
             }else if(request.status === 'declined'){
                 req.flash('success', `${request.username} request has been denied`);
             }
+            await request.save();
             res.redirect('back');
         }
     }
