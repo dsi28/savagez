@@ -10,6 +10,7 @@ module.exports = {
         req.flash('success', 'Request has been sent!');
         res.redirect('/caves');
     },
+
     async requestUpdate(req,res,next){
         const request = await Request.update({
             status: req.body.status

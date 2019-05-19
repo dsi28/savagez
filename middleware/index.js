@@ -64,7 +64,6 @@ const middleware = {
                 status: 'pending'
             }
         });
-        console.log(request);
         if(!request){
             return next();
         }else{

@@ -7,6 +7,7 @@
         <input type='submit' value='DELETE'>
     </form>
 <%}else if(currentUser && !caveUser){%>
+    <p><%=cave.caveId%></p>
     <form method='POST' action='/caves/<%=cave.caveId%>/requests'>
         <input type='submit' value='Join Cave'>
     </form>

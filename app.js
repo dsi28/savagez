@@ -53,8 +53,8 @@ app.use((req,res,next)=>{
 });
 
 app.use('/', indexRouter);
-app.use('/caves', cavesRouter);
 app.use('/caves/:id/requests', requestRouter);
+app.use('/caves', cavesRouter);
 //app.use('/caves/:id/jobs', jobsRouter);
 
 // catch 404 and forward to error handler
