@@ -6,6 +6,32 @@
     <form method='POST' action='/caves/<%=cave.caveId%>?_method=DELETE'>
         <input type='submit' value='DELETE'>
     </form>
+    <h3>Open Requests</h3>
+ 
+    <%if(requestList && Array.isArray(requestList)){%>
+        <%requestList.forEach((request)=>{%>
+            <p><%=request.username%></p>
+            <p><%=request.caveId%></p>
+            <p><%=request.status%></p>
+            <%if(request.status === 'pending'){%>
+                <form action='/caves/<%=cave.caveId%>/requests/<%=request.requestId%>?_method=PUT' method='POST'>
+                    <input type='text' name='status' value='accepted' hidden>
+                    <input type='submit' value='Accept'>
+                </form>
+                <form action='/caves/<%=cave.caveId%>/requests/<%=request.requestId%>?_method=PUT' method='POST'>
+                    <input type='text' name='status' value='declined' hidden>
+                    <input type='submit' value='Decline'>
+                </form>
+            <%}%>
+            <hr>
+        <%})%>
+    <%}else if(requestList){%>
+            <p><%=requestList.username%></p>
+            <p><%=requestList.caveId%></p>
+            <p><%=requestList.status%></p>
+            <hr>
+    <%}%>
+
 <%}else if(currentUser && !caveUser){%>
     <p><%=cave.caveId%></p>
     <form method='POST' action='/caves/<%=cave.caveId%>/requests'>

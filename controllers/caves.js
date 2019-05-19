@@ -1,4 +1,4 @@
-const {Cave, User, Role, CaveUser, Job} = require('../sequelize'),
+const {Cave, User, Role, CaveUser, Job, Request} = require('../sequelize'),
     FuzzySearch = require('fuzzy-search'),
     Sequelize = require('sequelize'),
     Op = Sequelize.Op;
@@ -58,7 +58,12 @@ module.exports = {
             caveId:cave.caveId,
             username:req.user.username
         }});
-        res.render('caves/show', {cave, caveUser});
+        const requestList = await Request.findAll({
+            where:{
+                caveId: req.params.id
+            }
+        })
+        res.render('caves/show', {cave, caveUser, requestList});
     },
 
     async cavesEdit(req,res,next){

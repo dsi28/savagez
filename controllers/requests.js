@@ -19,17 +19,24 @@ module.exports = {
                 requestId:req.params.requestId
             }
         });
-        if(request.status === 'accepted'){
-            await CaveUser.create({
-                username: request.username,
-                caveId: request.caveId,
-                role: 'savage'
-            });
-            req.flash('success', `${request.username} has been added to the cave`);
-        }else if(request.status === 'declined'){
-            req.flash('success', `${request.username} request has been denied`);
+        if(!request){
+            console.log('no request found');
+            req.flash('error', 'no request found');
+            res.redirect('/back');
+        }else{
+            console.log(request);
+            if(request.status === 'accepted'){
+                await CaveUser.create({
+                    username: request.username,
+                    caveId: request.caveId,
+                    role: 'savage'
+                });
+                req.flash('success', `${request.username} has been added to the cave`);
+            }else if(request.status === 'declined'){
+                req.flash('success', `${request.username} request has been denied`);
+            }
+            res.redirect('back');
         }
-        res.redirect('back');
     }
 
 }

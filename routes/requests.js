@@ -14,6 +14,6 @@ const express = require('express'),
 
 router.post('/', userIsLoggedIn, asyncErrorHandler(validatePendingRequests), asyncErrorHandler(requestCreate));
 
-router.put('/requrestId', userIsLoggedIn, userIsLandLord, asyncErrorHandler(requestUpdate));
+router.put('/:requestId',  asyncErrorHandler(requestUpdate)); //middleware: userIsLoggedIn, userIsLandLord,
 
 module.exports = router;
