@@ -1,47 +1,49 @@
-const {Job, User} = require('../sequelize');
+const {Job, User, Cave, UserCave} = require('../sequelize');
 
 module.exports = {
-    jobsCreate(req,res,next){
-        req.body.UserId = req.params.id;
-        Job.create(req.body).then((job)=>{
-            res.rediret(`/users/${req.params.id}/jobs`)
-        });
+    async jobsCreate(req,res,next){
+        const job = await Job.create(req.body.job);
+        req.flash('success', 'Job created...');
+        res.redirect(`\jobs\${job.jobId}`);
     },
 
-    jobsNew(req,res,next){
-        User.findOne({
+    async jobsNew(req,res,next){
+        const cave = await Cave.findOne({
             where: {
-                id: req.params.id
+                caveId: req.params.id
             }
-        }).then((user)=>{
-            console.log('new user');
-            res.render(`users/new`,{user});
+        });
+        const userCaveList = UserCave.findAll({
+            where:{
+                caveId: req.params.id
+            }, 
+            attributes: ['username']
         })
+        res.render(`jobs/new`,{cave, userCaveList});
     },
 
-    jobsShow(req,res,next){
-        Job.findOne({
+    async jobsShow(req,res,next){
+        const job = await Job.findOne({
             where:{
                 id: req.params.jobId
             }
-        }).then((job)=>{
-            console.log('show job');
-            res.render(`jobs/show`, {job});
-        })
+        });
+        res.render('jobs/show');
     },
 
     jobsUpdate(req,res,next){
-        Job.update(req.body,
+        Job.update({
+            status: req.body.status
+        },
             {
                 where:{
                     id: req.params.jobId
                 },
                 returning: true
             }
-        ).then((job)=>{
-            console.log(`job update`);
-            res.redirect(`/users/${req.params.id}/jobs`);    
-        })
+        );
+        console.log(`job update`);
+        res.redirect(`/jobs/${job.jobId}`); 
     },
 
     jobsDelete(req,res,next){
@@ -50,10 +52,8 @@ module.exports = {
                 id: req.params.jobId
             },
             limit:1
-        }).then(()=>{
-            console.log('jobs delete');
-            res.redirect(`/users/${req.params.id}/jobs`);
-        })
+        });
+        console.log('jobs delete');
+        res.redirect(`/caves/req.params.id`);
     } 
-
 };
