@@ -19,27 +19,6 @@ module.exports = {
         })
     },
 
-    jobsIndex(req,res,next){
-        User.findOne({
-            where:{
-                id: req.params.id
-            }
-        }).then(
-            (user)=>{
-                Job.findAll({
-                    where:{
-                        UserId: user.dataValues.id
-                    }
-                }).then(
-                    (job)=>{
-                        console.log(job);
-                        res.json(job);
-                    }
-                )
-            }
-        );
-    },
-
     jobsShow(req,res,next){
         Job.findOne({
             where:{
@@ -48,17 +27,6 @@ module.exports = {
         }).then((job)=>{
             console.log('show job');
             res.render(`jobs/show`, {job});
-        })
-    },
-
-    jobsEdit(req,res,next){
-        Job.findOne({
-        where:{
-            id: req.params.jobId
-        }
-        }).then((job)=>{
-            console.log('edit job');
-            res.render(`jobs/edit`, {job});
         })
     },
 
