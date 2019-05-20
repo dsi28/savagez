@@ -24,11 +24,21 @@ module.exports = {
 
     async jobsShow(req,res,next){
         const job = await Job.findOne({
+            include:{
+                model: 'Cave',
+                through: { attributes: [] },
+                where:{
+                    caveId: req.params.id
+                }
+            },
             where:{
                 id: req.params.jobId
             }
         });
-        res.render('jobs/show');
+        console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+        console.log(job);
+        console.log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
+        res.render('jobs/show', {job});
     },
 
     jobsUpdate(req,res,next){

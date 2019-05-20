@@ -1,1 +1,15 @@
-<h1>users new</h1>
+<% layout('layouts/boilerplate') -%>
+<div>
+    <h1 style='text-align: center'>New Cave</h1>
+    <div>
+        <div style='width: 30%; margin:30px auto'>
+            <form action='/caves/<%=cave.caveId%>/jobs' method='POST'>
+                <div>
+                    <label for='title'>Title</label>
+                    <input type='text' name='title' id='title' placeholder='title'>
+                </div>
+                <button type='submit'>Create!</button>
+            </form>
+        </div>
+    </div>
+</div>

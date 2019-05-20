@@ -26,6 +26,6 @@ router.get('/:jobId', userIsLoggedIn, asyncErrorHandler(jobsShow));
 router.put('/:jobId', userIsLoggedIn, asyncErrorHandler(jobsUpdate));
 
 //delete job
-router.delete('/:jobId', userIsLoggedIn, asyncErrorHandler(jobsDelete));
+router.delete('/:jobId', userIsLoggedIn, userIsLandLord, asyncErrorHandler(jobsDelete));
 
 module.exports = router;
