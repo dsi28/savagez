@@ -1,4 +1,4 @@
-const {Job, User, Cave, UserCave} = require('../sequelize');
+const {Job, User, Cave, CaveUser} = require('../sequelize');
 
 module.exports = {
     async jobsCreate(req,res,next){
@@ -13,12 +13,13 @@ module.exports = {
                 caveId: req.params.id
             }
         });
-        const userCaveList = UserCave.findAll({
+        const userCaveList = await CaveUser.findAll({
             where:{
                 caveId: req.params.id
-            }, 
-            attributes: ['username']
-        })
+            }
+        });
+        console.log('///////////////////////////////');
+        console.log(userCaveList);
         res.render(`jobs/new`,{cave, userCaveList});
     },
 

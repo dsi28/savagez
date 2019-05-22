@@ -1,12 +1,25 @@
 <% layout('layouts/boilerplate') -%>
 <div>
-    <h1 style='text-align: center'>New Cave</h1>
+    <h1 style='text-align: center'>New Job</h1>
     <div>
         <div style='width: 30%; margin:30px auto'>
             <form action='/caves/<%=cave.caveId%>/jobs' method='POST'>
                 <div>
+                    <input type='text' name='job[caveId]' id='caveId' value='<%=cave.caveId%>' hidden>
                     <label for='title'>Title</label>
-                    <input type='text' name='title' id='title' placeholder='title'>
+                    <input type='text' name='job[title]' id='title' placeholder='title'>
+
+                    <select name='job[username]'>
+                        <%if(userCaveList && Array.isArray(userCaveList)){%>
+                            <%userCaveList.forEach((user)=>{%>
+                                <option value='<%=user.username%>'><%=user.username%></option>
+                            <%})%>
+                        <%}else if(userCaveList){%>
+                            <option value='<%=userCaveList.username%>'><%=userCaveList.username%></option>    
+                        <%}%>
+
+                    </select> 
+
                 </div>
                 <button type='submit'>Create!</button>
             </form>

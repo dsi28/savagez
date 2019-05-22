@@ -6,6 +6,7 @@
     <form method='POST' action='/caves/<%=cave.caveId%>?_method=DELETE'>
         <input type='submit' value='DELETE'>
     </form>
+    <a href='/caves/<%=cave.caveId%>/jobs/new'>New Job</a>
     <h3>Open Requests</h3>
  
     <%if(requestList && Array.isArray(requestList)){%>
