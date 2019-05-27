@@ -32,7 +32,16 @@
             <p><%=requestList.status%></p>
             <hr>
     <%}%>
-
+    <h3>Jobs</h3>
+    <%if(jobsList && Array.isArray(jobsList)){%>
+        <%jobsList.forEach((job)=>{%>
+            <p><a href='/caves/<%=cave.caveId%>/jobs/<%=job.jobId%>'><%=job.title%></a></p>
+            <hr>
+        <%})%>
+    <%}else if(jobsList){%>
+            <p><%=jobsList.title%></p>
+            <hr>
+    <%}%>
 <%}else if(currentUser && !caveUser){%>
     <p><%=cave.caveId%></p>
     <form method='POST' action='/caves/<%=cave.caveId%>/requests'>

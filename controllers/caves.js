@@ -62,8 +62,13 @@ module.exports = {
             where:{
                 caveId: req.params.id
             }
+        });
+        const jobsList = await Job.findAll({
+            where:{
+                caveId: req.params.id
+            }
         })
-        res.render('caves/show', {cave, caveUser, requestList});
+        res.render('caves/show', {cave, caveUser, requestList, jobsList});
     },
 
     async cavesEdit(req,res,next){

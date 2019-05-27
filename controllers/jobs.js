@@ -66,11 +66,11 @@ module.exports = {
     jobsDelete(req,res,next){
         Job.destroy({
             where:{
-                id: req.params.jobId
+                jobId: req.params.jobId
             },
             limit:1
         });
         console.log('jobs delete');
-        res.redirect(`/caves/req.params.id`);
+        res.redirect(`/caves/${req.params.id}`);
     } 
 };
