@@ -4,7 +4,7 @@ module.exports = {
     async jobsCreate(req,res,next){
         const job = await Job.create(req.body.job);
         req.flash('success', 'Job created...');
-        res.redirect(`\jobs\${job.jobId}`);
+        res.redirect(`/caves/${req.params.id}/jobs/${job.jobId}`);   
     },
 
     async jobsNew(req,res,next){
@@ -25,21 +25,27 @@ module.exports = {
 
     async jobsShow(req,res,next){
         const job = await Job.findOne({
-            include:{
-                model: 'Cave',
-                through: { attributes: [] },
+            include: [{
+                model: Cave,
                 where:{
                     caveId: req.params.id
                 }
-            },
+            }],
             where:{
-                id: req.params.jobId
+                jobId: req.params.jobId
             }
         });
+        const caveUser = await CaveUser.findOne({
+            where:{
+                caveId: req.params.id,
+                role:'Land Lord'
+            }
+        });
+
         console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
-        console.log(job);
+        console.log(job.Cave);
         console.log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
-        res.render('jobs/show', {job});
+        res.render('jobs/show', {job, caveUser});
     },
 
     jobsUpdate(req,res,next){

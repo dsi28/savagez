@@ -1,16 +1,17 @@
 <% layout('layouts/boilerplate') -%>
 <h1>Jobs Show</h1>
 <h3><%=job.title%></h3>
-<p><%=job.name%></p>
+<p><%=job.Cave.name%></p>
 <p><%=job.status%></p>
-
 <%if(currentUser && job.status === 'pending'){%>
-<form method='POST' action='/caves/<%=job.caveId%>/jobs/<%=job.jobId%>'>
+    <form method='POST' action='/caves/<%=job.caveId%>/jobs/<%=job.jobId%>'>
     <input type='submit' value='Done'>
-</form>
-<%if(currentUser && currentUser.role === 'Land Lord'){%>
+    </form>
+<%}%>
+<%if(currentUser && currentUser.username === caveUser.username){%>
     <form method='POST' action='/caves/<%=job.caveId%>/jobs/<%=job.jobId%>?_method=DELETE'>
-        <input type='submit' value='DELETE'>
+    <input type='submit' value='DELETE'>
     </form>
     <h3>Open Requests</h3>
 <%}%>
+    
