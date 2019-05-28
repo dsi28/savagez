@@ -11,7 +11,8 @@ module.exports = (sequelize,DataTypes)=> {
         },
         status: { //TABLE ROW
             type: DataTypes.STRING, //EXPECTING A STRING {COLUMN STRUCTURE}
-            AllowNull: false //THIS COLUMN CANNOT BE EMPTY
+            AllowNull: false, //THIS COLUMN CANNOT BE EMPTY
+            defaultValue: 'Pending'
         }
     });
 };

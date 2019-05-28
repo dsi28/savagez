@@ -66,10 +66,8 @@ module.exports = {
         let whereClause = {};
         let jobsList={}
         if(!caveUser){
-            console.log('tweqwreqwerq');
             jobsList={}
         }else{
-            console.log('asdfasdfadsfasdf');
             if(caveUser.role && caveUser.role === 'Land Lord'){
                 whereClause = {
                     where:{
@@ -84,9 +82,7 @@ module.exports = {
                     }
                 };
             }
-            console.log('hwere');
             jobsList = await Job.findAll(whereClause);
-            console.log(jobsList);
         }
         res.render('caves/show', {cave, caveUser, requestList, jobsList});
     },

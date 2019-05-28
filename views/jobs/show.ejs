@@ -3,8 +3,8 @@
 <h3><%=job.title%></h3>
 <p><%=job.Cave.name%></p>
 <p><%=job.status%></p>
-<%if(currentUser && job.status === 'pending'){%>
-    <form method='POST' action='/caves/<%=job.caveId%>/jobs/<%=job.jobId%>'>
+<%if(currentUser && job.status === 'Pending'){%>
+    <form method='POST' action='/caves/<%=job.caveId%>/jobs/<%=job.jobId%>?_method=PUT'>
     <input type='submit' value='Done'>
     </form>
 <%}%>

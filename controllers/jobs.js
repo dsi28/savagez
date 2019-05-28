@@ -41,26 +41,22 @@ module.exports = {
                 role:'Land Lord'
             }
         });
-
-        console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
         console.log(job.Cave);
-        console.log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
         res.render('jobs/show', {job, caveUser});
     },
 
-    jobsUpdate(req,res,next){
-        Job.update({
-            status: req.body.status
+    async jobsUpdate(req,res,next){
+        await Job.update({
+            status: 'Done'
         },
             {
                 where:{
-                    id: req.params.jobId
-                },
-                returning: true
+                    jobId: req.params.jobId
+                }
             }
         );
         console.log(`job update`);
-        res.redirect(`/jobs/${job.jobId}`); 
+        res.redirect(`/caves/${req.params.id}/jobs/${req.params.jobId}`); 
     },
 
     jobsDelete(req,res,next){
