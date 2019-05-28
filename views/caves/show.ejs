@@ -8,11 +8,9 @@
     </form>
     <a href='/caves/<%=cave.caveId%>/jobs/new'>New Job</a>
     <h3>Open Requests</h3>
- 
     <%if(requestList && Array.isArray(requestList)){%>
         <%requestList.forEach((request)=>{%>
             <p><%=request.username%></p>
-            <p><%=request.caveId%></p>
             <p><%=request.status%></p>
             <%if(request.status === 'pending'){%>
                 <form action='/caves/<%=cave.caveId%>/requests/<%=request.requestId%>?_method=PUT' method='POST'>
@@ -32,6 +30,7 @@
             <p><%=requestList.status%></p>
             <hr>
     <%}%>
+<%} if(currentUser && caveUser && caveUser.role ){%>
     <h3>Jobs</h3>
     <%if(jobsList && Array.isArray(jobsList)){%>
         <%jobsList.forEach((job)=>{%>

@@ -63,11 +63,31 @@ module.exports = {
                 caveId: req.params.id
             }
         });
-        const jobsList = await Job.findAll({
-            where:{
-                caveId: req.params.id
+        let whereClause = {};
+        let jobsList={}
+        if(!caveUser){
+            console.log('tweqwreqwerq');
+            jobsList={}
+        }else{
+            console.log('asdfasdfadsfasdf');
+            if(caveUser.role && caveUser.role === 'Land Lord'){
+                whereClause = {
+                    where:{
+                        caveId: req.params.id
+                    }
+                };
+            }else{
+                whereClause = {
+                    where:{
+                        caveId: req.params.id,
+                        username: req.user.username
+                    }
+                };
             }
-        })
+            console.log('hwere');
+            jobsList = await Job.findAll(whereClause);
+            console.log(jobsList);
+        }
         res.render('caves/show', {cave, caveUser, requestList, jobsList});
     },
 
