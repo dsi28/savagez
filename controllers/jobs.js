@@ -18,8 +18,6 @@ module.exports = {
                 caveId: req.params.id
             }
         });
-        console.log('///////////////////////////////');
-        console.log(userCaveList);
         res.render(`jobs/new`,{cave, userCaveList});
     },
 
@@ -41,7 +39,6 @@ module.exports = {
                 role:'Land Lord'
             }
         });
-        console.log(job.Cave);
         res.render('jobs/show', {job, caveUser});
     },
 
@@ -55,7 +52,6 @@ module.exports = {
                 }
             }
         );
-        console.log(`job update`);
         res.redirect(`/caves/${req.params.id}/jobs/${req.params.jobId}`); 
     },
 
@@ -66,7 +62,7 @@ module.exports = {
             },
             limit:1
         });
-        console.log('jobs delete');
+        req.flash('success', 'Job has been deleted...');
         res.redirect(`/caves/${req.params.id}`);
     } 
 };
