@@ -5,12 +5,13 @@ const express = require('express'),
   usersEdit,
   usersUpdate,
   usersShow,
-  usersDelete} = require('../controllers/users');
+  usersDelete} = require('../controllers/users'),
+  {userIsLoggedIn} = require('../middleware');
 
       //routes for: /users
       
 /* GET users listing. */
-router.get('/',usersIndex);
+router.get('/', userIsLoggedIn,usersIndex);
 
   //create user
 router.post('/',usersCreate);

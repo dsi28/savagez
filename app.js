@@ -56,6 +56,7 @@ app.use('/', indexRouter);
 app.use('/caves/:id/requests', requestRouter);
 app.use('/caves/:id/jobs', jobsRouter);
 app.use('/caves', cavesRouter);
+app.use('/users', usersRouter);
 
 
 // catch 404 and forward to error handler

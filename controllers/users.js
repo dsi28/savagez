@@ -2,7 +2,7 @@ const {User} = require('../sequelize');
 
 module.exports = {
     usersIndex (req, res, next){
-        User.findAll().then(users => res.json(users));
+        res.redirect(`/users/${req.user.username}`);
     },
 
     usersCreate (req,res,next){
