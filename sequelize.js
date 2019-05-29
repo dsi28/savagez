@@ -22,11 +22,10 @@ const Sequelize = require('sequelize'),
 //user-cave many to many using CaveUser. CaveUser-role one to one. user-job one to many. cave-job one to many. 
     //jobs one to one user
 Job.belongsTo(User, {foreignKey: 'username'});
-Job.belongsTo(Cave, {foreignKey: 'caveId'});
+Job.belongsTo(Cave, {foreignKey: 'caveId', onDelete: 'cascade', hooks: true});
 
     // cave-request one to many 
-Cave.hasMany(Request, {foreignKey: 'caveId'});
-
+Cave.hasMany(Request, {foreignKey: 'caveId', onDelete: 'cascade', hooks: true});
     // user-requrest one to many
 User.hasMany(Request, {foreignKey: 'username'});
 

@@ -16,7 +16,7 @@ module.exports = {
 
     async postLogin(req,res,next){
         await passport.authenticate('local', {
-            successRedirect: '/',
+            successRedirect: '/caves',
             failureRedirect: '/login',
             successFlash: 'Welcome back!',
             failureFlash:'User or password is incorrect'

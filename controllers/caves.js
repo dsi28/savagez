@@ -107,16 +107,6 @@ module.exports = {
 
     async cavesDelete(req,res,next){
         //after creating jobs routes add job.destroy and caveUser.destroy as prehooks in Cave for destroy
-        await Job.destroy({
-            where:{
-                caveId:req.params.id
-            }
-        });
-        await CaveUser.destroy({
-            where: {
-                caveId: req.params.id
-            }
-        });
         await Cave.destroy({
             where:{
                 caveId: req.params.id
