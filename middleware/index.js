@@ -70,6 +70,17 @@ const middleware = {
             req.flash('error', 'You already have pending request with this cave');
             return res.redirect('/caves');
         }
+    },
+
+    //checks if the user trying to acces the user profile is the user it self
+    userProfileAccess: (req,res,next)=>{
+        if(req.params.username === req.user.username){
+            return next();
+        }else{
+            req.flash('error', 'You cannot access another users profile...');
+            console.log('user profile access');
+            return res.redirect('back');
+        }
     }
 }
 module.exports = middleware;

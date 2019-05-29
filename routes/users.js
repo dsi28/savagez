@@ -6,7 +6,8 @@ const express = require('express'),
   usersUpdate,
   usersShow,
   usersDelete} = require('../controllers/users'),
-  {userIsLoggedIn} = require('../middleware');
+  {userIsLoggedIn,
+  userProfileAccess} = require('../middleware');
 
       //routes for: /users
       
