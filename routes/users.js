@@ -19,8 +19,9 @@ router.post('/',usersCreate);
 
 router.get('/:id/edit',usersEdit);
 
-router.put('/:id',usersUpdate);
+router.put('/:id', userIsLoggedIn, userProfileAccess, usersUpdate);
 
+    //user show
 router.get('/:id',usersShow);
 
 router.delete('/:id',usersDelete);
