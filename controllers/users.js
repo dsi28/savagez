@@ -5,21 +5,6 @@ module.exports = {
         res.redirect(`/users/${req.user.username}`);
     },
 
-    usersCreate (req,res,next){
-        User.create(req.body).then(user=>res.json(user));
-    },
-
-    usersEdit(req,res,next){
-        User.findOne({
-            where:{
-                username: req.params.username
-            }
-        }).then((user)=>{
-            console.log('get user edit');
-            res.render('users/edit', {user});
-        });
-    },
-
     async usersUpdate(req,res,next){
         await User.update(req.body, {
             where: {
@@ -47,18 +32,6 @@ module.exports = {
             }]
         });
         res.render('users/show', {user, caveList});
-    },
-
-    usersDelete(req,res,next){
-        User.destroy({
-            where: {
-                username: req.params.username    
-            },
-            limit:1
-        }).then(()=>{
-            console.log('user delete');
-            res.redirect('/users')
-        });
     }
 
 };
