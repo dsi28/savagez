@@ -15,6 +15,7 @@ const createError = require('http-errors'),
   jobsRouter = require('./routes/jobs'),
   cavesRouter = require('./routes/caves'),
   requestRouter = require('./routes/requests'),
+  landlordRouter = require('./routes/landlord'),
 
   app = express();
 
@@ -55,6 +56,7 @@ app.use((req,res,next)=>{
 app.use('/', indexRouter);
 app.use('/caves/:id/requests', requestRouter);
 app.use('/caves/:id/jobs', jobsRouter);
+app.use('/caves/:id/landlord', landlordRouter);
 app.use('/caves', cavesRouter);
 app.use('/users', usersRouter);
 
