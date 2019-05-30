@@ -2,7 +2,7 @@
 
 
 <h3>Properties</h3>
-<form action='/users/<%=user.username%>' method='POST'>
+<form action='/users/<%=user.username%>?_method=PUT' method='POST'>
     <div>
         <label for='firstName'>First Name</label>
         <input type='text' name='firstName' id='firstName' value='<%=user.firstName%>'>
@@ -11,7 +11,7 @@
         <label for='lastName'>Last Name</label>
         <input type='text' name='lastName' id='lastName' value='<%=user.lastName%>'>
     </div>  
-    <input type="button" value="Update">
+    <input type="submit" value="Update">
 </form>
 
 <h3>Caves</h3>

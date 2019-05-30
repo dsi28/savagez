@@ -20,16 +20,15 @@ module.exports = {
         });
     },
 
-    usersUpdate(req,res,next){
-        User.update(req.body,{
-            where:{
+    async usersUpdate(req,res,next){
+        await User.update(req.body, {
+            where: {
                 username: req.params.username
-            },
-            returning: true
-        }).then((user)=>{
-            console.log('user updated');
-            res.redirect(`/users/${req.params.username}`);
+            }
         })
+        console.log('user updated');
+        req.flash('success', 'User updated!');
+        res.redirect(`/users/${req.params.username}`);
     },
 
     async usersShow(req,res,next){

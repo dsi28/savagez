@@ -7,7 +7,8 @@ const express = require('express'),
   usersShow,
   usersDelete} = require('../controllers/users'),
   {userIsLoggedIn,
-  userProfileAccess} = require('../middleware');
+  userProfileAccess,
+  asyncErrorHandler} = require('../middleware');
 
       //routes for: /users
       
@@ -19,10 +20,11 @@ router.post('/',usersCreate);
 
 router.get('/:username/edit',usersEdit);
 
-router.put('/:username', userIsLoggedIn, userProfileAccess, usersUpdate);
+    //user update
+router.put('/:username', userIsLoggedIn, userProfileAccess, asyncErrorHandler(usersUpdate));
 
     //user show
-router.get('/:username', userIsLoggedIn, userProfileAccess, usersShow);
+router.get('/:username', userIsLoggedIn, userProfileAccess, asyncErrorHandler(usersShow));
 
 router.delete('/:username',usersDelete);
 
