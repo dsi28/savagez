@@ -7,7 +7,7 @@
 	<body>
 		<div class='container'>
 			<%if(currentUser){%>
-				<p><a href='/users/<%=currentUser.username%>'><%=currentUser.username%></a></p>
+				<a href='/users/<%=currentUser.username%>'><%=currentUser.username%></a>
 			<%}%>
 			<a href='/login'>Login</a>
 			<a href='/logout'>Logout</a>

@@ -17,14 +17,14 @@ router.get('/', userIsLoggedIn,usersIndex);
   //create user
 router.post('/',usersCreate);
 
-router.get('/:id/edit',usersEdit);
+router.get('/:username/edit',usersEdit);
 
-router.put('/:id', userIsLoggedIn, userProfileAccess, usersUpdate);
+router.put('/:username', userIsLoggedIn, userProfileAccess, usersUpdate);
 
     //user show
-router.get('/:id',usersShow);
+router.get('/:username', userIsLoggedIn, userProfileAccess, usersShow);
 
-router.delete('/:id',usersDelete);
+router.delete('/:username',usersDelete);
 
 
 

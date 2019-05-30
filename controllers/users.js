@@ -1,4 +1,4 @@
-const {User} = require('../sequelize');
+const {User, Cave, CaveUser} = require('../sequelize');
 
 module.exports = {
     usersIndex (req, res, next){
@@ -12,7 +12,7 @@ module.exports = {
     usersEdit(req,res,next){
         User.findOne({
             where:{
-                id: req.params.id
+                username: req.params.username
             }
         }).then((user)=>{
             console.log('get user edit');
@@ -23,30 +23,37 @@ module.exports = {
     usersUpdate(req,res,next){
         User.update(req.body,{
             where:{
-                id: req.params.id
+                username: req.params.username
             },
             returning: true
         }).then((user)=>{
             console.log('user updated');
-            res.redirect(`/users/${req.params.id}`);
+            res.redirect(`/users/${req.params.username}`);
         })
     },
 
-    usersShow(req,res,next){
-        User.findOne({
+    async usersShow(req,res,next){
+        const user = await User.findOne({
             where:{
-                id:req.params.id
+                username:req.params.username
             }
-        }).then((user)=>{
-            console.log('user show');
-            res.render('users/show', {user});
         });
+        const caveList = await Cave.findAll({
+            include: [{
+                model: User,
+                through: { attributes: [] },
+                where:{
+                    username: req.user.username
+                }
+            }]
+        });
+        res.render('users/show', {user, caveList});
     },
 
     usersDelete(req,res,next){
         User.destroy({
             where: {
-                id: req.params.id    
+                username: req.params.username    
             },
             limit:1
         }).then(()=>{
