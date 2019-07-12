@@ -3,7 +3,6 @@
 <h3><%=cave.name%></h3>
 <%if(currentUser && caveUser && caveUser.role === 'Land Lord'){%>
     <p><a href='/caves/<%=cave.caveId%>/landlord'>Land Lord Portal</a></p>
-    <a href='/caves/<%=cave.caveId%>/jobs/new'>New Job</a>
     
 <%} if(currentUser && caveUser && caveUser.role ){%>
     <h3>Jobs</h3>

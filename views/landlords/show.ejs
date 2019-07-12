@@ -44,5 +44,15 @@
             <%}%>
         <%})%>
     <%}%>
-    
+    <h3>Jobs List</h3>
+        <a href='/caves/<%=cave.caveId%>/jobs/new'>New Job</a>
+    <%if(jobsList && Array.isArray(jobsList)){%>
+        <%jobsList.forEach((job)=>{%>
+            <p><a href='/caves/<%=cave.caveId%>/jobs/<%=job.jobId%>'><%=job.title%></a></p>
+            <hr>
+        <%})%>
+    <%}else if(jobsList){%>
+            <p><%=jobsList.title%></p>
+            <hr>
+    <%}%>
 <%}%>

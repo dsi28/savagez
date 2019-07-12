@@ -57,33 +57,18 @@ module.exports = {
             caveId:cave.caveId,
             username:req.user.username
         }});
-        const requestList = await Request.findAll({
-            where:{
-                caveId: req.params.id
-            }
-        });
-        let whereClause = {};
         let jobsList={}
         if(!caveUser){
             jobsList={}
         }else{
-            if(caveUser.role && caveUser.role === 'Land Lord'){
-                whereClause = {
-                    where:{
-                        caveId: req.params.id
-                    }
-                };
-            }else{
-                whereClause = {
-                    where:{
-                        caveId: req.params.id,
-                        username: req.user.username
-                    }
-                };
-            }
-            jobsList = await Job.findAll(whereClause);
+            jobsList = await Job.findAll({
+                where:{
+                    caveId: req.params.id,
+                    username: req.user.username
+                }
+            });
         }
-        res.render('caves/show', {cave, caveUser, requestList, jobsList});
+        res.render('caves/show', {cave, caveUser, jobsList});
     },
 
     async cavesEdit(req,res,next){

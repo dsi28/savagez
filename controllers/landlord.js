@@ -22,7 +22,13 @@ module.exports = {
                 caveId: req.params.id
             }
         });
-        res.render(`landlords/show`, {userList, requestList, cave});
+        
+        jobsList = await Job.findAll({
+            where:{
+                caveId: req.params.id
+            }
+        });
+        res.render(`landlords/show`, {userList, requestList, cave, jobsList});
     },
 
     async landlordUpdate(req,res,next){
