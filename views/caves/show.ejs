@@ -2,34 +2,9 @@
 <h1>Cave Show</h1>
 <h3><%=cave.name%></h3>
 <%if(currentUser && caveUser && caveUser.role === 'Land Lord'){%>
-    <p><a href='/caves/<%=cave.caveId%>/edit'>Edit</a> cave</p>
-    <form method='POST' action='/caves/<%=cave.caveId%>?_method=DELETE'>
-        <input type='submit' value='DELETE'>
-    </form>
+    <p><a href='/caves/<%=cave.caveId%>/landlord'>Land Lord Portal</a></p>
     <a href='/caves/<%=cave.caveId%>/jobs/new'>New Job</a>
-    <h3>Open Requests</h3>
-    <%if(requestList && Array.isArray(requestList)){%>
-        <%requestList.forEach((request)=>{%>
-            <p><%=request.username%></p>
-            <p><%=request.status%></p>
-            <%if(request.status === 'pending'){%>
-                <form action='/caves/<%=cave.caveId%>/requests/<%=request.requestId%>?_method=PUT' method='POST'>
-                    <input type='text' name='status' value='accepted' hidden>
-                    <input type='submit' value='Accept'>
-                </form>
-                <form action='/caves/<%=cave.caveId%>/requests/<%=request.requestId%>?_method=PUT' method='POST'>
-                    <input type='text' name='status' value='declined' hidden>
-                    <input type='submit' value='Decline'>
-                </form>
-            <%}%>
-            <hr>
-        <%})%>
-    <%}else if(requestList){%>
-            <p><%=requestList.username%></p>
-            <p><%=requestList.caveId%></p>
-            <p><%=requestList.status%></p>
-            <hr>
-    <%}%>
+    
 <%} if(currentUser && caveUser && caveUser.role ){%>
     <h3>Jobs</h3>
     <%if(jobsList && Array.isArray(jobsList)){%>

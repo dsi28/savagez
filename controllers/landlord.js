@@ -12,12 +12,17 @@ module.exports = {
                 caveId: req.params.id,
             }
         });
-        let caveRequests = await Request.findAll({
+        let requestList = await Request.findAll({
             where:{
                 caveId: req.params.id
             }
         });
-        res.render(`landlords/show`, {userList, caveRequests});
+        let cave = await Cave.findOne({
+            where:{
+                caveId: req.params.id
+            }
+        });
+        res.render(`landlords/show`, {userList, requestList, cave});
     }
 
 }
