@@ -11,9 +11,9 @@ const express = require('express'),
     //routes for: /caves/:id/landlord
 
 //index
-router.post('/', userIsLoggedIn, userIsLandLord, asyncErrorHandler(landlordIndex));
+router.get('/', userIsLoggedIn, userIsLandLord, asyncErrorHandler(landlordIndex));
 
-//show landlord
-router.get('/:jobId', userIsLoggedIn, userIsLandLord, asyncErrorHandler(landlordShow));
+// //show landlord
+// router.get('/:jobId', userIsLoggedIn, userIsLandLord, asyncErrorHandler(landlordShow));
 
 module.exports = router;
