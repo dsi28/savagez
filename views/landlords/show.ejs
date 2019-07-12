@@ -29,14 +29,19 @@
             <p><%=requestList.status%></p>
             <hr>
     <%}%>
+      <h3>Users</h3>
     <%if(userList && Array.isArray(userList)){%>
         <%userList.forEach((user)=>{%>
-            <p><a href='/users/<%=user.username%>'><%=user.username%></a></p>
-                <form action='/caves/<%=cave.caveId%>/requests/?_method=DELETE' method='POST'>
-                    <input type='text' name='status' hidden>
-                    <input type='submit' value='Kick Out'>
-                </form>
-            <hr>
+            <%if(currentUser.username !== user.username){%>
+                <p><a href='/users/<%=user.username%>'><%=user.username%></a></p>
+                <p><%=user.role%></p>
+                    <form action='/caves/<%=cave.caveId%>/landlord/<%=user.username%>?_method=PUT' method='POST'>
+                        <input type='text' name='status' value='remove' hidden>
+                        <input type='submit' value='remove'>
+                    </form>
+
+                <hr>
+            <%}%>
         <%})%>
     <%}%>
     

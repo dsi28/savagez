@@ -16,4 +16,6 @@ router.post('/', userIsLoggedIn, asyncErrorHandler(validatePendingRequests), asy
 
 router.put('/:requestId',  asyncErrorHandler(requestUpdate)); //middleware: userIsLoggedIn, userIsLandLord,
 
+
+
 module.exports = router;

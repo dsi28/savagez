@@ -1,7 +1,8 @@
 const express = require('express'),
     router = express.Router({mergeParams: true}),
     {   landlordShow,
-        landlordIndex } = require('../controllers/landlord'),
+        landlordIndex,
+        landlordUpdate } = require('../controllers/landlord'),
     {
         asyncErrorHandler,
         userIsLoggedIn,
@@ -15,5 +16,8 @@ router.get('/', userIsLoggedIn, userIsLandLord, asyncErrorHandler(landlordIndex)
 
 // //show landlord
 // router.get('/:jobId', userIsLoggedIn, userIsLandLord, asyncErrorHandler(landlordShow));
+
+// removes a user from a cave
+router.put('/:username', userIsLoggedIn, userIsLandLord, asyncErrorHandler(landlordUpdate));
 
 module.exports = router;

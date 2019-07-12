@@ -23,6 +23,17 @@ module.exports = {
             }
         });
         res.render(`landlords/show`, {userList, requestList, cave});
+    },
+
+    async landlordUpdate(req,res,next){
+        if(req.body.status == 'remove'){
+            await CaveUser.destroy({
+                where:{
+                    username: req.params.username
+                }
+            });
+        }
+        res.redirect(`/caves/${req.params.id}/landlord`);
     }
 
 }
