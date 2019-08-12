@@ -6,10 +6,7 @@ const Sequelize = require('sequelize'),
     CaveModel = require('./models/Cave'),
     RequestModel = require('./models/Request'),
     //db connection
-    sequelize = new Sequelize(process.env.POSTGRE_DB, process.env.POSTGRE_USER, process.env.POSTGRE_PASSWORD, {
-        host: 'localhost',
-        dialect: 'postgres'
-    }),
+    sequelize = new Sequelize(process.env.POSTGRE_DB),
     //Create instances of the models
     User = UserModel(sequelize,Sequelize),
     Job = JobModel(sequelize,Sequelize),
