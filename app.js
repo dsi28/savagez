@@ -1,4 +1,4 @@
-//require('dotenv').config()
+require('dotenv').config()//comment this lineout when deployting to heroku
 const createError = require('http-errors'),
   express = require('express'),
   path = require('path'),
@@ -59,7 +59,6 @@ app.use('/caves/:id/jobs', jobsRouter);
 app.use('/caves/:id/landlord', landlordRouter);
 app.use('/caves', cavesRouter);
 app.use('/users', usersRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
