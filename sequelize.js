@@ -7,6 +7,11 @@ const Sequelize = require('sequelize'),
     RequestModel = require('./models/Request'),
     //db connection
     sequelize = new Sequelize(process.env.POSTGRE_DB),
+    //local db connection
+    // const sequelize = new Sequelize(POSTGRE_DB_local, POSTGRE_USER_local, POSTGRE_PASSWORD_local, {
+    //   host: 'localhost',
+    //   dialect: 'postgres'
+    // }),
     //Create instances of the models
     User = UserModel(sequelize,Sequelize),
     Job = JobModel(sequelize,Sequelize),
